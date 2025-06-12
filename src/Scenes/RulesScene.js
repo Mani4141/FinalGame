@@ -5,11 +5,27 @@ export default class RulesScene extends Phaser.Scene {
 
   create() {
     const { width, height } = this.scale;
+    this.background = this.add.image(width / 2, height / 2, 'rulesBg');
+    this.background.setDisplaySize(width, height);
+    this.background.setDepth(0);
 
     // Title
     this.add.text(width / 2, 50, '📜 Rules & Credits', {
-      fontSize: '40px',
-      fill: '#ffffff',
+      fontSize: '48px',
+      fontFamily: 'Arial',
+      fontStyle: 'bold',
+      color: '#ffffff',
+      stroke: '#000000',
+      strokeThickness: 8,
+      shadow: {
+        offsetX: 3,
+        offsetY: 3,
+        color: '#222222',
+        blur: 4,
+        stroke: true,
+        fill: true
+      },
+      align: 'center'
     }).setOrigin(0.5);
 
     // Rules Text
@@ -27,8 +43,10 @@ export default class RulesScene extends Phaser.Scene {
 Level Breakdown:
 - First level gifts start colliding after traveling at least 400 pixels
 - Second level gifts start colliding after 200 pixels capped at 300 pixels
+- also fire rate slowed down to 2 per second
 - third level gifts start colliding after 400 pixels capped at 400 pixels plus no reindeers
-- each level gets progressiveley faster
+- also fire rate slowed down to 1 per second
+- each level gets progressively faster
 - I wanted the gifts to have the feel that they were getting dropped down from the sky to go
 - into the chimneys hence the delay for colliding.
 
@@ -42,16 +60,40 @@ Level Breakdown:
     `;
 
     this.add.text(width / 2, 120, rulesText, {
-      fontSize: '20px',
-      fill: '#ffffff',
+      fontSize: '18px',
+      fontFamily: 'Arial',
+      color: '#ffffff',
+      stroke: '#000000',
+      strokeThickness: 5,
+      shadow: {
+        offsetX: 2,
+        offsetY: 2,
+        color: '#222222',
+        blur: 3,
+        stroke: true,
+        fill: true
+      },
       align: 'left',
       wordWrap: { width: width * 0.8 }
     }).setOrigin(0.5, 0);
 
     // Back Button
     const backButton = this.add.text(width / 2, height - 60, '← Back to Main Menu', {
-      fontSize: '24px',
-      fill: '#00ff00',
+      fontSize: '28px',
+      fontFamily: 'Arial',
+      fontStyle: 'bold',
+      color: '#00ff00',
+      stroke: '#000000',
+      strokeThickness: 5,
+      shadow: {
+        offsetX: 2,
+        offsetY: 2,
+        color: '#222222',
+        blur: 3,
+        stroke: true,
+        fill: true
+      },
+      align: 'center'
     }).setOrigin(0.5).setInteractive();
 
     backButton.on('pointerdown', () => {

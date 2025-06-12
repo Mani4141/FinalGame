@@ -90,21 +90,6 @@ export default class GameScene extends Phaser.Scene {
 
 
 
-    // 📦 Rooftop Present Pickups
-    this.pickups = this.physics.add.group();
-
-    this.time.addEvent({
-      delay: 5000,
-      callback: this.spawnPickup,
-      callbackScope: this,
-      loop: true,
-    });
-
-    this.physics.add.overlap(this.player, this.pickups, (player, pickup) => {
-      pickup.destroy();
-      this.score += 1;
-      this.scoreText.setText(`Presents Delivered: ${this.score}`);
-    });
 
     const oldWidth = 234;
     const oldHeight = 161;
@@ -267,12 +252,6 @@ gameOver() {
     this.chimneys.add(chimney);
   }
 
-  spawnPickup() {
-    const x = this.scale.width + 50;
-    const pickup = this.physics.add.sprite(x, Phaser.Math.Between(this.lanes[0], this.lanes[this.lanes.length - 1]), 'gift');
-    pickup.body.allowGravity = false;
-    this.pickups.add(pickup);
-  }
 
   resize(gameSize) {
     const width = gameSize.width;
