@@ -9,13 +9,14 @@ export default class GameOverScene extends Phaser.Scene {
 
   create() {
     const { width, height } = this.scale;
-
+    //background
     this.background = this.add.image(width / 2, height / 2, 'sadBg');
     this.background.setDisplaySize(width, height);
     this.background.setDepth(0);
 
+    //game over text
     this.add.text(width / 2, 200, 'Game Over', {
-      fontSize: '80px',         // Bigger font size
+      fontSize: '80px',         
       fill: '#ff0000',
       stroke: '#000000',        // Black outline
       strokeThickness: 6,
@@ -32,8 +33,9 @@ export default class GameOverScene extends Phaser.Scene {
       align: 'center',
     }).setOrigin(0.5);
 
+    //score text
     this.add.text(width / 2, 300, `Score: ${this.score}`, {
-      fontSize: '40px',         // Bigger font size
+      fontSize: '40px',         
       fill: '#ffffff',
       stroke: '#000000',
       strokeThickness: 4,
@@ -50,8 +52,9 @@ export default class GameOverScene extends Phaser.Scene {
       align: 'center',
     }).setOrigin(0.5);
 
+    //main menu text
     const mainMenuBtn = this.add.text(width / 2, 400, 'Return to Main Menu', {
-      fontSize: '36px',         // Bigger font size
+      fontSize: '36px',         
       fill: '#00ffcc',
       stroke: '#000000',
       strokeThickness: 4,

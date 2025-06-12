@@ -86,7 +86,7 @@ export default class GameScene extends Phaser.Scene {
 
 
 
-    // 📦 Rooftop Present Pickups
+    // Reindeer Present Pickups
     this.pickups = this.physics.add.group();
 
     this.time.addEvent({
@@ -95,7 +95,7 @@ export default class GameScene extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
-
+    //cont.
     this.physics.add.overlap(this.player, this.pickups, (player, pickup) => {
       this.sound.play('giftDrop');
       pickup.destroy();
@@ -103,6 +103,7 @@ export default class GameScene extends Phaser.Scene {
       this.scoreText.setText(`Presents Delivered: ${this.score}`);
     });
 
+    //used old png and changed it so had to resize new png
     const oldWidth = 234;
     const oldHeight = 161;
 
@@ -170,6 +171,7 @@ export default class GameScene extends Phaser.Scene {
     }
     });
   }
+
   loseHeart() {
   this.hearts--;
 
@@ -183,6 +185,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOver();
   }
 }
+
 gameOver() {
   if (this.bgMusic) {
     this.bgMusic.stop();
@@ -192,7 +195,7 @@ gameOver() {
   this.scene.start('GameOverScene', { score: this.score });
 }
 
-
+  //dropping gifts and collision
   dropGift() {
   const gift = this.add.sprite(this.player.x, this.player.y, 'gift').setScale(4);
   this.gifts.add(gift);
@@ -213,7 +216,7 @@ gameOver() {
     onUpdate: () => {
       const traveled = gift.x - startX;
 
-      // Enable collision checking after 200px
+      // Enable collision checking after 400px
       if (traveled > 400) {
         gift.canCheckCollision = true;
       }
@@ -249,6 +252,7 @@ gameOver() {
     }
   });
 }
+//win condition
     winGame() {
       if (this.bgMusic) {
         this.bgMusic.stop();

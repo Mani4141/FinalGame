@@ -106,6 +106,7 @@ export default class GameScene extends Phaser.Scene {
       this.scoreText.setText(`Presents Delivered: ${this.score}`);
     });
 
+    //used old png and changed it so had to resize new png
     const oldWidth = 234;
     const oldHeight = 161;
 
@@ -177,6 +178,7 @@ export default class GameScene extends Phaser.Scene {
     }
     });
   }
+
   loseHeart() {
   this.hearts--;
 
@@ -190,6 +192,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOver();
   }
 }
+
 gameOver() {
   if (this.bgMusic) {
     this.bgMusic.stop();
@@ -199,7 +202,7 @@ gameOver() {
   this.scene.start('GameOverScene', { score: this.score });
 }
 
-
+    //drop gifts logic and collision
   dropGift() {
   const gift = this.add.sprite(this.player.x, this.player.y, 'gift').setScale(4);
   this.gifts.add(gift);
@@ -220,7 +223,7 @@ gameOver() {
     onUpdate: () => {
       const traveled = gift.x - startX;
 
-      // Enable collision checking after 200px
+      // Enable collision checking after 200px stop at 300
       gift.canCheckCollision = traveled > 200 && traveled < 300;
 
 

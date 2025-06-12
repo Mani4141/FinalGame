@@ -5,7 +5,7 @@ export default class VictoryScene extends Phaser.Scene {
 
   create() {
     const { width, height } = this.scale;
-
+    //background
     this.background = this.add.image(width / 2, height / 2, 'victoryBg');
     this.background.setDisplaySize(width, height);
     this.background.setDepth(0);

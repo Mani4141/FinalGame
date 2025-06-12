@@ -4,11 +4,11 @@ export default class StartScene extends Phaser.Scene {
   }
 
   create() {
-
+    //background
     this.background = this.add.image(this.scale.width / 2, this.scale.height / 2, 'cozyBg');
     this.background.setDisplaySize(this.scale.width, this.scale.height);
     this.background.setDepth(0);
-
+    //title
     this.add.text(this.scale.width / 2, 150, 'Santa’s Sleigh Sprint', {
       fontSize: '64px',
       fontFamily: 'Arial',
@@ -26,7 +26,7 @@ export default class StartScene extends Phaser.Scene {
       },
       align: 'center'
     }).setOrigin(0.5);
-
+    //level text
     const createLevelText = (y, text, sceneKey) => {
       const txt = this.add.text(this.scale.width / 2, y, text, {
         fontSize: '32px',
@@ -54,7 +54,7 @@ export default class StartScene extends Phaser.Scene {
     createLevelText(300, 'Level 1', 'GameScene');
     createLevelText(360, 'Level 2', 'GameScene2');
     createLevelText(420, 'Level 3', 'GameScene3');
-
+    //rules text
     const rulesText = this.add.text(this.scale.width / 2, 550, 'Rules & Credits', {
       fontSize: '32px',
       fontFamily: 'Arial',
