@@ -4,21 +4,44 @@ export default class StartScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.text(300, 200, 'Santa’s Sleigh Sprint', {
+    this.add.text(300, 150, 'Santa’s Sleigh Sprint', {
       fontSize: '32px',
       fill: '#fff'
     });
 
-    const playText = this.add.text(350, 300, 'PLAY', {
+    const level1 = this.add.text(350, 250, 'Level 1', {
       fontSize: '24px',
       fill: '#0f0'
     }).setInteractive();
 
-    playText.on('pointerdown', () => {
+    const level2 = this.add.text(350, 300, 'Level 2', {
+      fontSize: '24px',
+      fill: '#0f0'
+    }).setInteractive();
+
+    const level3 = this.add.text(350, 350, 'Level 3', {
+      fontSize: '24px',
+      fill: '#0f0'
+    }).setInteractive();
+
+    level1.on('pointerdown', () => {
       this.scene.start('GameScene');
     });
 
-    // Optional: Background music preload
-    //this.sound.play('bgMusic', { loop: true, volume: 0.2 });
+    level2.on('pointerdown', () => {
+      this.scene.start('GameScene2');
+    });
+
+    level3.on('pointerdown', () => {
+      this.scene.start('GameScene3');
+    });
+    const rulesText = this.add.text(350, 500, 'Rules & Credits', {
+      fontSize: '24px',
+      fill: '#0ff'
+    }).setInteractive();
+
+    rulesText.on('pointerdown', () => {
+      this.scene.start('RulesScene');
+    });
   }
 }

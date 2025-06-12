@@ -1,6 +1,8 @@
 export default class GameScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'GameScene' });
+    super({ key: 'GameScene2' });
+    this.lastGiftDropTime = 0;   // time (in ms) of last gift drop
+    this.giftDropCooldown = 500; // cooldown in milliseconds (1 second)
   }
 
   create() {
@@ -11,6 +13,7 @@ export default class GameScene extends Phaser.Scene {
 
     // 🎨 Background — position and size will be set in resize()
     this.bg = this.add.tileSprite(400, 300, 800, 600, 'bg');
+    this.bg.setTint(0x888888); 
 
     //lanes — will be recalculated in resize()
     this.lanes = [300, 800, 1000];
@@ -36,7 +39,7 @@ export default class GameScene extends Phaser.Scene {
       y: { min: 0, max: this.scale.height },
       lifespan: 5000,
       speedY: { min: 50, max: 100 },
-      scale: { start: 0.5, end: 0 },
+      scale: { start: 0.2, end: 0 },
       quantity: 5,
       frequency: 100,
       blendMode: 'ADD'
@@ -86,7 +89,7 @@ export default class GameScene extends Phaser.Scene {
 
 
 
-    // 📦 Rooftop Present Pickups
+    // Reindeer Present Pickups
     this.pickups = this.physics.add.group();
 
     this.time.addEvent({
@@ -126,7 +129,7 @@ export default class GameScene extends Phaser.Scene {
     this.resize({ width: this.scale.width, height: this.scale.height });
   }
 
-  update() {
+  update(time, delta) {
     // 🎮 Movement between lanes
     if (Phaser.Input.Keyboard.JustDown(this.upKey)) {
       if (this.currentLaneIndex > 0) {
@@ -147,13 +150,17 @@ export default class GameScene extends Phaser.Scene {
 
     // 🎁 Drop gift
     if (Phaser.Input.Keyboard.JustDown(this.dropKey)) {
-        this.dropGift();
+    const now = this.time.now;  // current time in ms since game started
+    if (now - this.lastGiftDropTime >= this.giftDropCooldown) {
+      this.dropGift();
+      this.lastGiftDropTime = now;
+    }
     }
 
-    // Move chimneys left and destroy if off-screen
+    // Move chimneys left and destroy if off-screen plus reindeers
     this.chimneys.children.iterate(chimney => {
       if (chimney) {
-        chimney.x -= 5;
+        chimney.x -= 8;
         if (chimney.x < -50){
          chimney.destroy();
          this.loseHeart();
@@ -161,7 +168,7 @@ export default class GameScene extends Phaser.Scene {
         }
       }
     });
-        this.pickups.children.iterate(pickup => {
+    this.pickups.children.iterate(pickup => {
     if (pickup) {
         pickup.x -= 8;
     }
@@ -214,9 +221,8 @@ gameOver() {
       const traveled = gift.x - startX;
 
       // Enable collision checking after 200px
-      if (traveled > 400) {
-        gift.canCheckCollision = true;
-      }
+      gift.canCheckCollision = traveled > 200 && traveled < 300;
+
 
       if (gift.canCheckCollision && !gift.collided) {
         this.chimneys.children.iterate(chimney => {
